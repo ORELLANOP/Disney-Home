@@ -1,0 +1,749 @@
+@import 'formato';
+
+
+@mixin centrar ($direccion, $content, $items) {
+    display: flex;
+    flex-direction: $direccion;
+    justify-content: $content;
+    align-items: $items;
+}
+
+%menu-interior{
+    visibility: hidden;
+    padding: 0;
+    position: absolute;
+
+    background-color: map-get($color, menu-int);
+    border: 1px solid black;
+    color: map-get($color, texto);
+
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+
+$tamaño:(
+    pixeles:10px,
+    porcent:100%,
+    pantalla:1vh,
+);
+
+
+html, body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family:map-get($formato, general);
+
+    background-color: map-get($color, body);
+}
+
+// ************ SECCION HEADER ******************
+
+.header {
+    @include centrar(row, space-between, center);
+
+    width: map-get($tamaño, porcent);
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    font-family: map-get($formato, menu);
+    border-bottom: 1px solid gray; 
+
+    grid-area: header;
+
+
+    //Logo de Mickey
+    .logo{
+        @include centrar(row, center, center);
+
+        img{
+            width: map-get($tamaño, porcent)*0.15;
+        }
+    }
+
+    //Menu desplegable Sticky
+
+    .menu3 {
+        @include centrar(row, center, center);
+
+        height: map-get($tamaño, pixeles)*2;
+        padding: 20px 80px 20px 20px;
+        margin: 0;
+
+        background-color:white;
+
+        color:map-get($color, texto);
+
+        //grid-area: menu;
+
+        li {
+            list-style: none;
+        }
+
+        .menu3-principal{
+            @include centrar(row, space-between, none);
+
+            width: map-get($tamaño, pixeles)*35;
+
+            li:hover .menu3-interior{
+                visibility: visible;
+            }
+            
+        }
+
+
+        .menu3-interior {
+
+            width: map-get($tamaño, pixeles)*12;
+            @extend %menu-interior;
+
+            li {
+                padding: 5px;
+
+                &:hover {
+                    background-color: map-get($color, menu-int-hover);
+                }
+            }
+        }    
+
+        a{
+            color: map-get($color, texto);
+            text-decoration-line: none;
+        }
+    }
+}
+
+// ************ SECCION CABEZAL ******************
+
+.cabezal{
+    background-image: url(../imagenes/walt-disney-world.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    color:black;
+
+    @include centrar(column, right, flex-start);
+
+    grid-area: cabezal;
+
+
+    //Logo de Walt Disney World
+    .imagen{
+        position: absolute;
+        top: 120px;
+        left:20px;
+
+        img{
+            width: map-get($tamaño, pixeles)*50;
+        }
+    }    
+
+    //Where the magic begins
+    .escrito{
+        position: relative;
+        top: 150px;
+        left:60px;
+        width: map-get($tamaño, pixeles)*40;
+        color: white;
+        font-size: 25px;
+    }
+}
+
+//Ancla
+.up{
+    width: map-get($tamaño, pixeles)*8;  
+
+    @include centrar(row, center, center);
+
+    position: fixed;
+    top: 450px;
+    right: 15px; 
+    z-index: 10;
+
+    img{
+        width: map-get($tamaño, porcent)*0.5;
+    }
+}
+
+
+
+//Menu desplazamineto2
+
+menu{
+    @include centrar(row, center, center);
+
+    height: map-get($tamaño, pixeles)*2;
+    padding: 20px 80px 20px 20px;
+    margin: 0;
+
+    background-color:map-get($color, menu-p-2);
+
+    color:map-get($color, texto);
+    font-family: 'PT Sans Narrow', sans-serif;
+
+    grid-area: menu1;
+
+    li {
+        padding: 40px;
+        list-style: none;
+    }
+
+    .menu-principal{
+        @include centrar(row, center, center);
+
+        width: map-get($tamaño, pixeles)*35;
+
+        li:hover .menu-interior{
+            visibility: visible;
+        }
+        
+    }
+
+
+    .menu-interior {
+
+        width: map-get($tamaño, pixeles)*20;
+        @extend %menu-interior;
+
+        li {
+            padding: 5px;
+
+            &:hover {
+                background-color: map-get($color, menu-int-hover);
+            }
+        }
+
+    }
+    
+}
+
+
+// ************ SECCION MEDIO ******************
+
+.medio{
+    background-color: white;
+    @include centrar(column, space-between, center);
+    //font-family: 'Calibri', sans-serif;
+    
+
+    grid-area: medio;
+
+    .preciosbajos{
+        position: absolute;
+        top: 1040px;
+        left:20px;
+    }
+
+    //Menu Hamburguesa (lampara y genio)
+    #menu{
+        position: absolute;
+        display: block;
+        top: 1000px;
+        left:20px;
+        padding: 0;
+
+        background-color:white;
+        margin:0;
+        opacity: 0;
+        transition: left 0.5s, color 0.5s, opacity 0.5s;
+        transition: opacity 1s;
+
+        
+        &:target{
+            display: block;
+            z-index: 5;
+            left: 40px;
+            top: 1095px;
+
+            color:black;
+            opacity: 1;
+        }
+
+        &:target a{
+            color: black;
+        }
+    }
+
+
+
+    menu img{
+        width:map-get($tamaño, porcent)*0.1;
+    }
+
+    menu ul {
+        position: absolute;
+        left: 40px;
+        top: 5px;
+        list-style: none;
+
+        li{
+            list-style: none;
+            padding: 10px;
+        }
+    }
+
+
+    .hamburguesa{
+        position: absolute;
+        top: 1150px;
+        left:20px;
+        z-index: 1;
+        color: black;  
+
+        img{
+            width: map-get($tamaño, porcent)*0.3;
+        }
+
+        &:target{
+            z-index: -1;
+        }
+
+    }
+
+    .escritomedio{
+        padding: 10px;
+        margin: 10px;
+        font-size: 1.2em;
+
+        h2{
+            color:map-get($color, texto);
+        }
+
+        p{
+            margin:30px;
+        }
+    }
+
+
+    .springs{
+        @include centrar(column, center, center);
+
+        .shopsprings{
+            @include centrar(row, space-evenly, center);
+            
+            margin: 0 20px 20px 20px;
+            padding: 0 10px 10px 10px;
+
+            img{
+                width: map-get($tamaño, pixeles)*30;
+            }
+
+            .escrito6{
+                margin: 10px;
+                padding: 10px;
+            }
+        }
+
+        .logosprings img{
+            width: map-get($tamaño, pixeles)*18;
+        }
+    }
+}
+
+
+
+
+// ************ SECCION MEDIO 2******************
+
+.medio2{
+    background-color:map-get($color, menu-int);
+    @include centrar(row, space-evenly, center);
+    
+    margin: 0;
+    //font-family: 'Calibri', sans-serif;
+
+    grid-area: medio2;
+
+
+    .columna1{
+        width: map-get($tamaño, porcent)*0.5;
+        margin: 10px;
+    }
+
+    .columna2{
+        width:map-get($tamaño, porcent)*0.5;
+        margin: 10px;
+    }
+
+    img{
+        width:map-get($tamaño, pixeles)*20;
+    }
+
+}
+
+// ************ SECCION MEDIO 3 ******************
+
+.medio3{
+    background-color: white;
+    margin: 0;
+    //font-family: 'Calibri', sans-serif;
+
+    @include centrar(row, center, flex-start);
+
+    grid-area: medio3;
+
+    .desgargas{
+        height: map-get($tamaño, pixeles)*30;
+        @include centrar(column, space-between, center);   
+    }
+
+    img{
+        width: map-get($tamaño, pixeles)*10;
+    }
+}
+
+
+// ************ SECCION PARALLAX ******************
+
+.parallax{
+    height: map-get($tamaño, pantalla)*55;
+
+    background-image: url(../imagenes/4640044_full-fondos-de-pantalla-4k-disney-66-disney-desktop-wallpapers-on-wallpaperplay.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    @include centrar(column, center, center);
+
+    grid-area: parallax;
+
+
+    p{
+        margin: 2em;
+        border: 2px white solid;
+        background-color: black;
+        color: map-get($color, menu-int);
+        opacity: 50%;
+    }
+}
+
+
+// ************ SECCION ARTICLE ******************
+
+article{
+    height: map-get($tamaño, pixeles)*40;
+
+    @include centrar(row, space-around, none);
+
+    margin: 2em;
+    grid-area: article;
+
+
+    h2{
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    p{
+        padding: 10px;
+        font-size: 10px;
+    }
+
+
+    //Cards
+    .card{
+        width: map-get($tamaño, pixeles)*25;
+        box-shadow: 5px 5px 15px black;
+
+        &:hover{
+            width: map-get($tamaño, pixeles)*26;
+            height: map-get($tamaño, pixeles)*41;
+        }
+        img{
+            width:map-get($tamaño, porcent);
+            height:map-get($tamaño, porcent)*0.6;
+        }
+    }
+
+}
+
+// ************ SECCION FOOTER ******************
+
+footer{
+    background-color: black;
+
+    @include centrar(row, space-around, center);
+
+    padding:0;
+    margin:0;
+
+    grid-area: footer;
+
+    //Gato de Alicia
+    figure {
+        opacity: 0;
+        height: map-get($tamaño, pixeles)*10;
+        transition: left 0.5s, color 0.5s, opacity 0.5s;
+        transition: opacity 1s;
+        margin-bottom: 30px;
+
+
+        img {
+            width: map-get($tamaño, pixeles)*15;
+        }
+
+        &:hover {
+            opacity: 60%;
+        }
+    }
+
+
+    .figura2{
+        @include centrar(column, center, center);
+
+        color: map-get($color, menu-int);
+
+        img{
+            width: map-get($tamaño, pixeles)*10;
+            border-radius: 50%;
+        }
+    }
+
+    //Redes Sociales
+    .redessociales{
+        @include centrar(column, center, center);
+
+        color: map-get($color, menu-int);
+    }
+
+
+    i {
+        font-size: 2em;
+    }
+
+    a{
+        color:map-get($color, menu-int);
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
+
+//*********************** MEDIA QUERI (pantalla Celu)******************
+
+@media(max-width: 450px){
+
+    .contenedor{
+
+        height: 600vh;
+        //width: 414px;
+        display: grid;
+
+
+        grid-template-areas:
+            //"header"
+            "cabezal"
+            "menu1"
+            "medio2"
+            //"parallax"
+            "article"
+            "footer";
+        
+        //grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 0.3fr 0.4fr 0.9fr 0.06fr;
+    }
+
+    body, html{
+        width: 414px;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .cabezal {
+        width: 414px;
+
+        background-image: url(../imagenes/castillo-vertical.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+
+        grid-area: cabezal;
+
+        .imagen img{
+            width: map-get($tamaño, pixeles)*38;
+        }
+        
+
+        //Where the magic begins
+        .escrito{
+            top: 170px;
+            width: map-get($tamaño, pixeles)*30;
+        }
+    }
+
+
+    .menu1{
+        //display: none;
+        width: 414px;
+        
+
+        @include centrar(row, center, center);
+
+        height: map-get($tamaño, pixeles)*1;
+        padding: 0;
+    
+        .menu-principal{
+            @include centrar(row, center, center);
+    
+            width: map-get($tamaño, pixeles)*0.5;
+
+            ul{
+                display: none;
+                width: map-get($tamaño, pixeles)*0.5;
+            }
+
+            li {
+                //padding: 40px;
+                width: map-get($tamaño, pixeles)*0.5;
+                list-style: none;
+            }
+            li:hover .menu-interior{
+                display: none;
+                visibility: visible;
+            }
+        }
+    }
+
+    .medio{
+        display: none;
+    }
+
+    .medio2 {
+        width: 414px;
+        grid-area: medio2;
+    
+        img{
+            width:map-get($tamaño, pixeles)*15;
+        }
+    }
+
+    .medio3{
+        display: none;
+    }
+
+    .parallax{
+        display: none;
+    }
+
+    article {
+        width: 414px;
+        grid-area: article;
+
+        height: map-get($tamaño, pixeles)*200;
+
+        @include centrar(column, space-around, center);
+
+        margin: 2em;
+
+
+        h2{
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        p{
+            padding: 10px;
+            font-size: 10px;
+        }
+
+
+        //Cards
+        .card{
+            width: map-get($tamaño, pixeles)*30;
+            box-shadow: 5px 5px 15px black;
+
+            img{
+                width:map-get($tamaño, porcent);
+                height:map-get($tamaño, porcent)*0.6;
+            }
+        }
+    }
+
+    footer {
+        width: 414px;
+        grid-area: footer;
+
+
+            //Gato de Alicia
+        figure {
+            display: none;
+        }
+
+
+        .figura2{
+            @include centrar(column, center, center);
+
+            color: map-get($color, menu-int);
+
+            img{
+                width: map-get($tamaño, pixeles)*7;
+                border-radius: 50%;
+            }
+        }
+
+        //Redes Sociales
+        i {
+            font-size: 1.5em;
+        }
+
+        p {
+            font-size: 15px;
+        }
+    }
+
+    .up{
+        display: none; 
+    }
+
+    #menu{
+        display: none;
+    }
+
+    .hamburguesa{
+        display: none;
+    }
+
+    .preciosbajos{
+        display: none;
+    }
+        
+
+}
+
+
+
+
+
+
+
+
+//*********************** MEDIA QUERI (pantalla PC)******************
+
+@media (min-width: 801px){
+
+    .contenedor{
+
+        height: 400vh;
+        display: grid;
+
+
+        grid-template-areas:
+            "header header header header"
+            "cabezal cabezal cabezal cabezal"
+            "menu1 menu1 menu1 menu1"
+            "medio medio medio2 medio3"
+            "parallax parallax parallax parallax"
+            "article article article article"
+            "footer footer footer footer";
+        
+        grid-template-columns: 1fr 1fr 1.5fr 0.5fr;
+        grid-template-rows: 0.05fr 0.5fr 0.05fr 0.7fr 0.3fr 0.2fr 0.08fr;
+    }
+}
